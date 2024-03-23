@@ -1,0 +1,128 @@
+<div class="grid p-fluid">
+    <div class="col-12 ">
+        <div class="card">
+            <h5>Student Data</h5>
+
+            <form class="row g-3" [formGroup]="StudentForm" (ngSubmit)="onSubmit($event)">
+                <label for="name">Name</label>
+                <span class="p-float-label">
+                    <input pInputText type="text" id="name" formControlName="name" class="form-control"
+                        placeholder="EX: Ahmed Omar Samir" required
+                        [ngClass]="{'is-valid': getFormControl('name').valid, 'is-invalid': getFormControl('name').invalid && getFormControl('name').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('name').errors && getFormControl('name').touched">
+                        <ng-container *ngIf="getFormControl('name').hasError('required')">Name is
+                            required</ng-container>
+                        <ng-container *ngIf="getFormControl('name').hasError('minlength')">Name must be at least 3
+                            characters</ng-container>
+                        <ng-container *ngIf="getFormControl('name').hasError('pattern')">Full Name must be at least with
+                            First and last name</ng-container>
+                    </div>
+                </span>
+
+                <label for="age">Age</label>
+                <span class="p-float-label">
+                    <input pInputText type="number" id="age" formControlName="age" class="form-control"
+                        placeholder="Enter age" required
+                        [ngClass]="{'is-valid': getFormControl('age').valid, 'is-invalid': getFormControl('age').invalid && getFormControl('age').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('age').errors && getFormControl('age').touched">
+                        <ng-container *ngIf="getFormControl('age').hasError('required')">Age is required</ng-container>
+                    </div>
+                </span>
+
+                <label for="email">Email</label>
+                <span class="p-float-label">
+                    <input pInputText type="email" id="email" formControlName="email" class="form-control"
+                        placeholder="Enter Email" required
+                        [ngClass]="{'is-valid': getFormControl('email').valid, 'is-invalid': getFormControl('email').invalid && getFormControl('email').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('email').errors && getFormControl('email').touched">
+                        <ng-container *ngIf="getFormControl('email').hasError('required')">Email is
+                            required</ng-container>
+                        <ng-container *ngIf="getFormControl('email').hasError('email')">Enter a valid
+                            Email</ng-container>
+                    </div>
+                </span>
+
+                <label for="password">Password</label>
+                <span class="p-float-label">
+                    <input pInputText type="password" id="password" formControlName="password" class="form-control"
+                        placeholder="Enter password" required
+                        [ngClass]="{'is-valid': getFormControl('password').valid, 'is-invalid': getFormControl('password').invalid && getFormControl('password').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('password').errors && getFormControl('password').touched">
+                        <ng-container *ngIf="getFormControl('password').hasError('required')">Password is
+                            required</ng-container>
+                        <ng-container *ngIf="getFormControl('password').hasError('pattern')">Enter a valid
+                            password</ng-container>
+                    </div>
+                </span>
+
+                <label for="title">Title</label>
+                <span class="p-float-label">
+                    <input pInputText type="text" id="title" formControlName="title" class="form-control"
+                        placeholder="Enter title" required
+                        [ngClass]="{'is-valid': getFormControl('title').valid, 'is-invalid': getFormControl('title').invalid && getFormControl('title').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('title').errors && getFormControl('title').touched">
+                        <ng-container *ngIf="getFormControl('title').hasError('required')">Title is
+                            required</ng-container>
+                        <ng-container *ngIf="getFormControl('title').hasError('minlength')">Title must be at least 4
+                            characters</ng-container>
+                    </div>
+                </span>
+
+
+
+                <label for="phone">Phone</label>
+                <span class="p-float-label">
+                    <input pInputText type="tel" id="phone" formControlName="phone" class="form-control"
+                        placeholder="Enter phone number" required
+                        [ngClass]="{'is-valid': getFormControl('phone').valid, 'is-invalid': getFormControl('phone').invalid && getFormControl('phone').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('phone').errors && getFormControl('phone').touched">
+                        <ng-container *ngIf="getFormControl('phone').hasError('required')">Phone is
+                            required</ng-container>
+                        <ng-container *ngIf="getFormControl('phone').hasError('pattern')">Enter a valid phone
+                            number</ng-container>
+                    </div>
+                </span>
+
+
+                <label for="photo">Photo</label>
+                <span class="p-float-label">
+                    <input pInputText type="tel" id="photo" formControlName="photo" class="form-control"
+                        placeholder="Enter photo number" required
+                        [ngClass]="{'is-valid': getFormControl('photo').valid, 'is-invalid': getFormControl('photo').invalid && getFormControl('photo').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('photo').errors && getFormControl('photo').touched">
+                        <ng-container *ngIf="getFormControl('photo').hasError('required')">photo is
+                            required</ng-container>
+                        <ng-container *ngIf="getFormControl('photo').hasError('pattern')">Enter a valid photo
+                            number</ng-container>
+                    </div>
+                </span>
+
+
+                <label for="address">Address</label>
+                <span class="p-float-label">
+                    <input pInputText type="tel" id="address" formControlName="address" class="form-control"
+                        placeholder="Enter address number" required
+                        [ngClass]="{'is-valid': getFormControl('address').valid, 'is-invalid': getFormControl('address').invalid && getFormControl('address').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('address').errors && getFormControl('address').touched">
+                        <ng-container *ngIf="getFormControl('address').hasError('required')">address is
+                            required</ng-container>
+                        <ng-container *ngIf="getFormControl('address').hasError('pattern')">Enter a valid address
+                            number</ng-container>
+                    </div>
+                </span>
+
+                <button pButton label="Submit" type="submit" class="p-button p-button-primary"></button>
+
+            </form>
+
+        </div>
+    </div>
+</div>

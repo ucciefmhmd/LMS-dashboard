@@ -1,0 +1,108 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h5>Instrcutor Card</h5>
+            <p-table #dt1 [value]="instrcutors" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
+                styleClass="p-datatable-gridlines" [paginator]="true"
+                [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
+                            (click)="clear(dt1)"></button>
+                        <button pButton label="Add Instructor" [routerLink]="['/uikit/instructor/addinstructor']" class="p-button-outlined mb-2"></button>
+                        <span class="p-input-icon-left mb-2">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)"
+                                placeholder="Search Keyword" class="w-full" />
+                        </span>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 14rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Name
+                                <p-columnFilter type="text" field="name" display="menu"
+                                    placeholder="Search by name"></p-columnFilter>
+                            </div>
+                        </th>
+
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Phone
+                                <p-columnFilter type="text" field="phone" display="menu"
+                                    placeholder="Search by phone"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 20rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Address
+                                <p-columnFilter type="text" field="address" display="menu"
+                                    placeholder="Search by address"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 16rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Email
+                                <p-columnFilter type="text" field="email" display="menu"
+                                    placeholder="Search by email"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 16rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Password
+                                <p-columnFilter type="text" field="password" display="menu"
+                                    placeholder="Search by password"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 16rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Specialization
+                                <p-columnFilter type="text" field="specialization" display="menu"
+                                    placeholder="Search by specialization"></p-columnFilter>
+                            </div>
+                        </th>
+                        <!-- Include other table headers as needed -->
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-instructor>
+                    <tr>
+                        <td>
+                            <img [alt]="instructor.name" src="{{instructor.photo}}" width="32" class="image-control"
+                                style="vertical-align: middle" />
+                            <span class="image-text ml-2">{{instructor.name}}</span>
+                        </td>
+                        <td>
+                            {{ instructor.phone }}
+                        </td>
+                        <td>
+                            {{ instructor.address }}
+                        </td>
+                        <td>
+                            {{ instructor.email }}
+                        </td>
+                        <td>
+                            {{ instructor.password }}
+                        </td>
+                        <td>
+                            {{ instructor.specialization }}
+                        </td>
+                        <!-- Include other properties as needed -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No students found.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="8">Loading student data. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
