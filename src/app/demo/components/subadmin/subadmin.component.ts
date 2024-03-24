@@ -9,10 +9,10 @@ interface expandedRows {
 }
 
 @Component({
-  templateUrl: './subadmin.component.html',
-  providers: [MessageService, ConfirmationService]
+    templateUrl: './subadmin.component.html',
+    providers: [MessageService, ConfirmationService],
 })
-export class SubadminComponent implements OnInit{
+export class SubadminComponent implements OnInit {
     subadmins: ISubadmin[] | undefined;
 
     rowGroupMetadata: any;
@@ -23,21 +23,34 @@ export class SubadminComponent implements OnInit{
 
     @ViewChild('filter') filter!: ElementRef;
 
-    constructor(private subadminServices: SubadminService) {
-    }
+    constructor(private subadminServices: SubadminService) {}
 
     ngOnInit() {
-        this.subadminServices.getAllData().subscribe(data => {
+        this.loadSubadmin();
+        this.subadminServices.newSubadminAdded.subscribe(() => {
+            this.loadSubadmin();
+        });
+    }
+
+    loadSubadmin() {
+        this.subadminServices.getAllData().subscribe((data) => {
             this.subadmins = data;
             this.loading = false;
+        });
+    }
 
-            // @ts-ignore
-            this.subadmins.forEach(sub => sub.date = new Date(sub.date));
+    remove(id: any): void {
+        console.log(id);
+        this.subadminServices.Delete(id).subscribe(() => {
+            this.loadSubadmin();
         });
     }
 
     onGlobalFilter(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+        table.filterGlobal(
+            (event.target as HTMLInputElement).value,
+            'contains'
+        );
     }
     clear(table: Table) {
         table.clear();

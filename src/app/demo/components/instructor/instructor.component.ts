@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { IInstrcutor } from '../../Model/iinstrcutor';
+import { IInstructor } from '../../Model/iinstructor';
 import { InstructorService } from '../../API-Services/instructor.service';
 
 interface expandedRows {
@@ -9,11 +9,11 @@ interface expandedRows {
 }
 
 @Component({
-  templateUrl: './instructor.component.html',
-  providers: [MessageService, ConfirmationService]
+    templateUrl: './instructor.component.html',
+    providers: [MessageService, ConfirmationService],
 })
-export class InstructorComponent implements OnInit{
-    instrcutors: IInstrcutor[] | undefined;
+export class InstructorComponent implements OnInit {
+    instructors: IInstructor[] | undefined;
 
     rowGroupMetadata: any;
 
@@ -23,25 +23,39 @@ export class InstructorComponent implements OnInit{
 
     @ViewChild('filter') filter!: ElementRef;
 
-    constructor(private instServices: InstructorService) {
-    }
+    constructor(private instServices: InstructorService) {}
 
     ngOnInit() {
-        this.instServices.getAllData().subscribe(data => {
-            this.instrcutors = data;
-            this.loading = false;
+        this.loadInstructor();
+        this.instServices.newInstrcutorAdded.subscribe(() => {
+            this.loadInstructor();
+        });
+        // @ts-ignore
+        //this.instrcutors.forEach((inst) => (inst.date = new Date(inst.date)));
+    }
 
-            // @ts-ignore
-            this.instrcutors.forEach(inst => inst.date = new Date(inst.date));
+    loadInstructor() {
+        this.instServices.getAllData().subscribe((data) => {
+            this.instructors = data;
+            this.loading = false;
+        });
+    }
+
+    remove(id: any): void {
+        console.log(id);
+        this.instServices.Delete(id).subscribe(() => {
+            this.loadInstructor();
         });
     }
 
     onGlobalFilter(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+        table.filterGlobal(
+            (event.target as HTMLInputElement).value,
+            'contains'
+        );
     }
     clear(table: Table) {
         table.clear();
         this.filter.nativeElement.value = '';
     }
-
 }

@@ -2,7 +2,7 @@
 
     <div class="col-12">
         <div class="card">
-            <h5>Filter Menu</h5>
+            <h5>Student Card</h5>
             <p-table #dt1 [value]="students" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
                 styleClass="p-datatable-gridlines" [paginator]="true"
                 [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
@@ -15,7 +15,7 @@
                         <span class="p-input-icon-left mb-2">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)"
-                                placeholder="Search Keyword" class="w-full" />
+                                placeholder="Search..." class="w-full" />
                         </span>
                     </div>
                 </ng-template>
@@ -35,47 +35,46 @@
                                     placeholder="Search by age"></p-columnFilter>
                             </div>
                         </th>
-                        <th style="min-width: 12rem">
+                        <th style="min-width: 8rem">
                             <div class="flex justify-content-between align-items-center">
                                 Title
                                 <p-columnFilter type="text" field="title" display="menu"
                                     placeholder="Search by title"></p-columnFilter>
                             </div>
                         </th>
-                        <th style="min-width: 12rem">
+                        <th style="min-width: 11rem">
                             <div class="flex justify-content-between align-items-center">
                                 Phone
                                 <p-columnFilter type="text" field="phone" display="menu"
                                     placeholder="Search by phone"></p-columnFilter>
                             </div>
                         </th>
-                        <th style="min-width: 20rem">
+                        <th style="min-width: 9rem">
                             <div class="flex justify-content-between align-items-center">
                                 Address
                                 <p-columnFilter type="text" field="address" display="menu"
                                     placeholder="Search by address"></p-columnFilter>
                             </div>
                         </th>
-                        <th style="min-width: 16rem">
+                        <th style="min-width: 13rem">
                             <div class="flex justify-content-between align-items-center">
                                 Email
                                 <p-columnFilter type="text" field="email" display="menu"
                                     placeholder="Search by email"></p-columnFilter>
                             </div>
                         </th>
-                        <th style="min-width: 16rem">
+                        <th style="min-width: 9rem">
                             <div class="flex justify-content-between align-items-center">
                                 Password
                                 <p-columnFilter type="text" field="password" display="menu"
                                     placeholder="Search by password"></p-columnFilter>
                             </div>
                         </th>
-                        <th style="min-width: 16rem">
+                        <th style="min-width: 10rem">
                             <div class="flex justify-content-between align-items-center">
                                 Actions
                             </div>
                         </th>
-                        <!-- Include other table headers as needed -->
                     </tr>
                 </ng-template>
 
@@ -105,9 +104,12 @@
                             {{ student.password }}
                         </td>
                         <td>
-                            <div class="p-toolbar-group-right">
-                                <p-splitButton label="Options" [model]="items" (onClick)="setSelectedRow(student.id)">
-                                </p-splitButton>
+                            <div class="p-toolbar-group-left flex flex-wrap">
+                                <button pButton type="button" icon="pi pi-pencil"
+                                    [routerLink]="['/uikit/student/editstudent', student.id]"
+                                    class="p-button-success mr-2"></button>
+                                <button pButton type="button" icon="pi pi-trash" (click)="remove(student.id)"
+                                    class="p-button-danger"></button>
                             </div>
                         </td>
 

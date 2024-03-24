@@ -1,26 +1,26 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { StudentService } from '../../API-Services/student.service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IStudent } from '../../Model/istudent';
+import { SubadminService } from '../../API-Services/subadmin.service';
+import { ISubadmin } from '../../Model/isubadmin';
 
 @Component({
-    templateUrl: './add-student.component.html',
-    styleUrls: ['./add-student.component.scss'],
+    templateUrl: './form-subadmin.component.html',
+    styleUrl: './form-subadmin.component.scss',
     providers: [MessageService],
 })
-export class AddStudentComponent implements OnInit, OnDestroy {
-    StudentForm: FormGroup;
+export class FormSubadminComponent {
+     SubadminForm: FormGroup;
     private myActionSub: Subscription | undefined;
 
     constructor(
-        private studentService: StudentService,
+        private subadminService: SubadminService,
         private router: Router,
         private actRoute: ActivatedRoute
     ) {
-        this.StudentForm = new FormGroup({
+        this.SubadminForm = new FormGroup({
             name: new FormControl('', [
                 Validators.required,
                 Validators.minLength(3),
@@ -44,17 +44,12 @@ export class AddStudentComponent implements OnInit, OnDestroy {
                     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
                 ),
             ]),
-            photo: new FormControl(null, Validators.required),
-            age: new FormControl('', Validators.required),
-            title: new FormControl('', [
-                Validators.required,
-                Validators.minLength(4),
-            ]),
+            photo: new FormControl(null, Validators.required)
         });
     }
 
     getFormControl(name: string): FormControl {
-        return this.StudentForm.get(name) as FormControl;
+        return this.SubadminForm.get(name) as FormControl;
     }
 
     id: number = 0;
@@ -69,30 +64,26 @@ export class AddStudentComponent implements OnInit, OnDestroy {
 
             // edit
             if (this.id != 0) {
-                this.studentService
+                this.subadminService
                     .getById(this.id)
-                    .subscribe((student: IStudent) => {
-                        this.StudentForm.controls['name'].setValue(
-                            student.name
+                    .subscribe((subadmin: ISubadmin) => {
+                        this.SubadminForm.controls['name'].setValue(
+                            subadmin.name
                         );
-                        this.StudentForm.controls['phone'].setValue(
-                            student.phone
+                        this.SubadminForm.controls['phone'].setValue(
+                            subadmin.phone
                         );
-                        this.StudentForm.controls['address'].setValue(
-                            student.address
+                        this.SubadminForm.controls['address'].setValue(
+                            subadmin.address
                         );
-                        this.StudentForm.controls['email'].setValue(
-                            student.email
+                        this.SubadminForm.controls['email'].setValue(
+                            subadmin.email
                         );
-                        this.StudentForm.controls['password'].setValue(
-                            student.password
+                        this.SubadminForm.controls['password'].setValue(
+                            subadmin.password
                         );
-                        this.StudentForm.controls['photo'].setValue(
-                            student.photo
-                        );
-                        this.StudentForm.controls['age'].setValue(student.age);
-                        this.StudentForm.controls['title'].setValue(
-                            student.title
+                        this.SubadminForm.controls['photo'].setValue(
+                            subadmin.photo
                         );
                     });
             }
@@ -101,18 +92,17 @@ export class AddStudentComponent implements OnInit, OnDestroy {
 
     onSubmit(e: Event) {
         e.preventDefault();
-
-        if (this.StudentForm.valid) {
+        if (this.SubadminForm.valid) {
             if (this.id) {
-                this.studentService
-                    .Edit(this.id, this.StudentForm.value)
+                this.subadminService
+                    .Edit(this.id, this.SubadminForm.value)
                     .subscribe(() => {});
             } else {
-                this.studentService
-                    .Add(this.StudentForm.value)
+                this.subadminService
+                    .Add(this.SubadminForm.value)
                     .subscribe(() => {});
             }
-            this.router.navigate(['/uikit/student']);
+            this.router.navigate(['/uikit/subadmin']);
         }
     }
 

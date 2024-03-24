@@ -14,26 +14,26 @@ import { SliderModule } from 'primeng/slider';
 import { RatingModule } from 'primeng/rating';
 import { InstructorComponent } from './instructor.component';
 import { InstrcutorRoutingModule } from './instrcutor-routing.module';
-
-
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    InstrcutorRoutingModule,
-    TableModule,
-    ButtonModule,
-    InputTextModule,
-    ToggleButtonModule,
-    RippleModule,
-    MultiSelectModule,
-    DropdownModule,
-    ProgressBarModule,
-    ToastModule,
-    SliderModule,
-    RatingModule
-  ],
-  declarations: [InstructorComponent]
+    imports: [
+        CommonModule,
+        FormsModule,
+        InstrcutorRoutingModule,
+        TableModule,
+        ButtonModule,
+        InputTextModule,
+        ToggleButtonModule,
+        RippleModule,
+        MultiSelectModule,
+        DropdownModule,
+        ProgressBarModule,
+        ToastModule,
+        SliderModule,
+        RatingModule,
+        SplitButtonModule
+    ],
+    declarations: [InstructorComponent],
 })
-export class InstrcutorModule { }
+export class InstrcutorModule {}

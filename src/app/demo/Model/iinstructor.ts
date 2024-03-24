@@ -1,4 +1,4 @@
-export interface IInstrcutor {
+export interface IInstructor {
         id: number,
         name: string,
         phone: string,

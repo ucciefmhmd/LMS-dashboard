@@ -1,26 +1,26 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { StudentService } from '../../API-Services/student.service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IStudent } from '../../Model/istudent';
+import { InstructorService } from '../../API-Services/instructor.service';
+import { IInstructor } from '../../Model/iinstructor';
 
 @Component({
-    templateUrl: './add-student.component.html',
-    styleUrls: ['./add-student.component.scss'],
+    templateUrl: './form-instructor.component.html',
+    styleUrl: './form-instructor.component.scss',
     providers: [MessageService],
 })
-export class AddStudentComponent implements OnInit, OnDestroy {
-    StudentForm: FormGroup;
+export class FormInstructorComponent implements OnInit, OnDestroy {
+    InstructorForm: FormGroup;
     private myActionSub: Subscription | undefined;
 
     constructor(
-        private studentService: StudentService,
+        private instructorService: InstructorService,
         private router: Router,
         private actRoute: ActivatedRoute
     ) {
-        this.StudentForm = new FormGroup({
+        this.InstructorForm = new FormGroup({
             name: new FormControl('', [
                 Validators.required,
                 Validators.minLength(3),
@@ -45,16 +45,12 @@ export class AddStudentComponent implements OnInit, OnDestroy {
                 ),
             ]),
             photo: new FormControl(null, Validators.required),
-            age: new FormControl('', Validators.required),
-            title: new FormControl('', [
-                Validators.required,
-                Validators.minLength(4),
-            ]),
+            specialization: new FormControl('', [Validators.required, Validators.minLength(2)]),
         });
     }
 
     getFormControl(name: string): FormControl {
-        return this.StudentForm.get(name) as FormControl;
+        return this.InstructorForm.get(name) as FormControl;
     }
 
     id: number = 0;
@@ -69,31 +65,31 @@ export class AddStudentComponent implements OnInit, OnDestroy {
 
             // edit
             if (this.id != 0) {
-                this.studentService
+                this.instructorService
                     .getById(this.id)
-                    .subscribe((student: IStudent) => {
-                        this.StudentForm.controls['name'].setValue(
-                            student.name
+                    .subscribe((instructor: IInstructor) => {
+                        this.InstructorForm.controls['name'].setValue(
+                            instructor.name
                         );
-                        this.StudentForm.controls['phone'].setValue(
-                            student.phone
+                        this.InstructorForm.controls['phone'].setValue(
+                            instructor.phone
                         );
-                        this.StudentForm.controls['address'].setValue(
-                            student.address
+                        this.InstructorForm.controls['address'].setValue(
+                            instructor.address
                         );
-                        this.StudentForm.controls['email'].setValue(
-                            student.email
+                        this.InstructorForm.controls['email'].setValue(
+                            instructor.email
                         );
-                        this.StudentForm.controls['password'].setValue(
-                            student.password
+                        this.InstructorForm.controls['password'].setValue(
+                            instructor.password
                         );
-                        this.StudentForm.controls['photo'].setValue(
-                            student.photo
+                        this.InstructorForm.controls['photo'].setValue(
+                            instructor.photo
                         );
-                        this.StudentForm.controls['age'].setValue(student.age);
-                        this.StudentForm.controls['title'].setValue(
-                            student.title
+                        this.InstructorForm.controls['specialization'].setValue(
+                            instructor.specialization
                         );
+
                     });
             }
         });
@@ -101,18 +97,13 @@ export class AddStudentComponent implements OnInit, OnDestroy {
 
     onSubmit(e: Event) {
         e.preventDefault();
-
-        if (this.StudentForm.valid) {
+        if (this.InstructorForm.valid) {
             if (this.id) {
-                this.studentService
-                    .Edit(this.id, this.StudentForm.value)
-                    .subscribe(() => {});
+                this.instructorService.Edit(this.id, this.InstructorForm.value).subscribe(() => {});
             } else {
-                this.studentService
-                    .Add(this.StudentForm.value)
-                    .subscribe(() => {});
+                this.instructorService.Add(this.InstructorForm.value).subscribe(() => {});
             }
-            this.router.navigate(['/uikit/student']);
+            this.router.navigate(['/uikit/instructor']);
         }
     }
 

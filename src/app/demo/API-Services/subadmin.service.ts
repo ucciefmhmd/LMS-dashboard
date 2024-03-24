@@ -1,57 +1,59 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { ISubadmin } from '../Model/isubadmin';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class SubadminService {
+    baseURL: string = 'http://localhost:5050/subadmin';
+    newSubadminAdded: Subject<void> = new Subject<void>();
+    constructor(private httpClient: HttpClient) {}
 
-    baseURL : string ="http://localhost:5050/subadmin";
+    getAllData(): Observable<ISubadmin[]> {
+        return this.httpClient.get<ISubadmin[]>(this.baseURL);
+    }
 
-  constructor(private httpClient : HttpClient) { }
+    getById(id: number): Observable<ISubadmin> {
+        return this.httpClient.get<ISubadmin>(`${this.baseURL}/${id}`);
+    }
 
-  getAllData(): Observable<ISubadmin[]> {
-    return this.httpClient.get<ISubadmin[]>(this.baseURL);
-  }
+    Add(subadmin: ISubadmin) {
+        return this.httpClient.post(this.baseURL, subadmin).pipe(
+            tap(() => {
+                this.newSubadminAdded.next();
+            })
+        );
+    }
 
-  getById(id: number): Observable<ISubadmin> {
-    return this.httpClient.get<ISubadmin>(`${this.baseURL}/${id}`);
-  }
+    Edit(id: number, subadmin: ISubadmin) {
+        return this.httpClient.put(`${this.baseURL}/${id}`, subadmin);
+    }
 
-  Add(subadmin: ISubadmin) {
-    return this.httpClient.post(this.baseURL, subadmin);
-  }
+    Delete(id: number) {
+        return this.httpClient.delete(`${this.baseURL}/${id}`);
+    }
 
-  Edit(id: number, subadmin: ISubadmin) {
-    return this.httpClient.put(`${this.baseURL}/${id}`, subadmin);
-  }
+    testObservable(): Observable<string> {
+        console.log('test function called');
 
-  Delete(id: number) {
-    return this.httpClient.delete(`${this.baseURL}/${id}`);
-  }
+        let myObservable = new Observable<string>((observer) => {
+            console.log('observable called');
+            observer.next('first data');
 
-  testObservable(): Observable<string> {
-    console.log('test function called');
+            if (false) {
+                observer.error('This is an error!');
+            }
+            observer.next('second data');
+            observer.complete();
+            return {
+                unsubscribe() {
+                    console.log('End subscription');
+                },
+            };
+        });
 
-    let myObservable = new Observable<string>((observer) => {
-
-      console.log('observable called');
-      observer.next('first data');
-
-      if (false) {
-        observer.error('This is an error!');
-      }
-      observer.next('second data');
-      observer.complete();
-      return {
-        unsubscribe() {
-          console.log('End subscription');
-        },
-      };
-    });
-
-    return myObservable;
-  }
+        return myObservable;
+    }
 }

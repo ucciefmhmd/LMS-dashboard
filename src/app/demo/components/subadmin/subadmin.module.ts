@@ -14,24 +14,26 @@ import { SliderModule } from 'primeng/slider';
 import { RatingModule } from 'primeng/rating';
 import { SubadminRoutingModule } from './subadmin-routing.module';
 import { SubadminComponent } from './subadmin.component';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    SubadminRoutingModule,
-    TableModule,
-    ButtonModule,
-    InputTextModule,
-    ToggleButtonModule,
-    RippleModule,
-    MultiSelectModule,
-    DropdownModule,
-    ProgressBarModule,
-    ToastModule,
-    SliderModule,
-    RatingModule
-  ],
-  declarations: [SubadminComponent]
+    imports: [
+        CommonModule,
+        FormsModule,
+        SubadminRoutingModule,
+        TableModule,
+        ButtonModule,
+        InputTextModule,
+        ToggleButtonModule,
+        RippleModule,
+        MultiSelectModule,
+        DropdownModule,
+        ProgressBarModule,
+        ToastModule,
+        SliderModule,
+        RatingModule,
+        SplitButtonModule
+    ],
+    declarations: [SubadminComponent],
 })
-export class SubadminModule { }
+export class SubadminModule {}
