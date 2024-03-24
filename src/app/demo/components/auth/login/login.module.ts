@@ -18,6 +18,7 @@ import { InputTextModule } from 'primeng/inputtext';
         FormsModule,
         PasswordModule,
         ReactiveFormsModule,
+        
     ],
     declarations: [LoginComponent]
 })
