@@ -9,7 +9,7 @@ import { IExam } from './iexam';
 export class ExamService {
     baseURL: string = 'http://localhost:5050/Exam';
 
-    newInstrcutorAdded: Subject<void> = new Subject<void>();
+    newExamAdded: Subject<void> = new Subject<void>();
 
     constructor(private httpClient: HttpClient) {}
 
@@ -24,7 +24,7 @@ export class ExamService {
     Add(instructor: IExam) {
         return this.httpClient.post(this.baseURL, instructor).pipe(
             tap(() => {
-                this.newInstrcutorAdded.next();
+                this.newExamAdded.next();
             })
         );
     }

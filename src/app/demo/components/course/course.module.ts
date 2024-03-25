@@ -13,11 +13,11 @@ import { ToastModule } from 'primeng/toast';
 import { SliderModule } from 'primeng/slider';
 import { RatingModule } from 'primeng/rating';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { QuestionComponent } from './question.component';
-import { QuestionRoutingModule } from './question-routing.module';
+import { CourseComponent } from './course.component';
+import { CourseRoutingModule } from './course-routing.module';
 
 @NgModule({
-    declarations: [QuestionComponent],
+    declarations: [CourseComponent],
     imports: [
         CommonModule,
         FormsModule,
@@ -33,7 +33,7 @@ import { QuestionRoutingModule } from './question-routing.module';
         SliderModule,
         RatingModule,
         SplitButtonModule,
-        QuestionRoutingModule,
+        CourseRoutingModule,
     ],
 })
-export class QuestionModule {}
+export class CourseModule {}

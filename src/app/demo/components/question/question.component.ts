@@ -13,7 +13,7 @@ interface expandedRows {
     providers: [MessageService, ConfirmationService],
 })
 export class QuestionComponent implements OnInit {
-    question: IQuestion[] | undefined;
+    Questions: IQuestion[] | undefined;
 
     rowGroupMetadata: any;
 
@@ -34,7 +34,7 @@ export class QuestionComponent implements OnInit {
 
     loadquestion() {
         this.questionService.getAllData().subscribe((data) => {
-            this.question = data;
+            this.Questions = data;
             this.loading = false;
         });
     }

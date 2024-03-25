@@ -3,7 +3,6 @@ import { NavigationEnd, Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { MenuService } from './app.menu.service';
 import { LayoutService } from './service/app.layout.service';
 
 @Component({
@@ -18,9 +17,9 @@ import { LayoutService } from './service/app.layout.service';
 				<span class="layout-menuitem-text">{{item.label}}</span>
 				<i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.items"></i>
 			</a>
-			<a *ngIf="(item.routerLink && !item.items) && item.visible !== false" (click)="itemClick($event)" [ngClass]="item.class" 
+			<a *ngIf="(item.routerLink && !item.items) && item.visible !== false" (click)="itemClick($event)" [ngClass]="item.class"
 			   [routerLink]="item.routerLink" routerLinkActive="active-route" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
-               [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" 
+               [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment"
                [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state" [queryParams]="item.queryParams"
                [attr.target]="item.target" tabindex="0" pRipple>
 				<i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
@@ -65,23 +64,23 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
 
     key: string = "";
 
-    constructor(public layoutService: LayoutService, private cd: ChangeDetectorRef, public router: Router, private menuService: MenuService) {
-        this.menuSourceSubscription = this.menuService.menuSource$.subscribe(value => {
-            Promise.resolve(null).then(() => {
-                if (value.routeEvent) {
-                    this.active = (value.key === this.key || value.key.startsWith(this.key + '-')) ? true : false;
-                }
-                else {
-                    if (value.key !== this.key && !value.key.startsWith(this.key + '-')) {
-                        this.active = false;
-                    }
-                }
-            });
-        });
+    constructor(public layoutService: LayoutService, private cd: ChangeDetectorRef, public router: Router) {
+        // // this.menuSourceSubscription = this.menuService.menuSource$.subscribe(value => {
+        //     Promise.resolve(null).then(() => {
+        //         if (value.routeEvent) {
+        //             this.active = (value.key === this.key || value.key.startsWith(this.key + '-')) ? true : false;
+        //         }
+        //         else {
+        //             if (value.key !== this.key && !value.key.startsWith(this.key + '-')) {
+        //                 this.active = false;
+        //             }
+        //         }
+        //     });
+        // });
 
-        this.menuResetSubscription = this.menuService.resetSource$.subscribe(() => {
-            this.active = false;
-        });
+        // this.menuResetSubscription = this.menuService.resetSource$.subscribe(() => {
+        //     this.active = false;
+        // });
 
         this.router.events.pipe(filter(event => event instanceof NavigationEnd))
             .subscribe(params => {
@@ -102,9 +101,9 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
     updateActiveStateFromRoute() {
         let activeRoute = this.router.isActive(this.item.routerLink[0], { paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' });
 
-        if (activeRoute) {
-            this.menuService.onMenuStateChange({ key: this.key, routeEvent: true });
-        }
+        // if (activeRoute) {
+        //     this.menuService.onMenuStateChange({ key: this.key, routeEvent: true });
+        // }
     }
 
     itemClick(event: Event) {
@@ -124,14 +123,14 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
             this.active = !this.active;
         }
 
-        this.menuService.onMenuStateChange({ key: this.key });
+        // this.menuService.onMenuStateChange({ key: this.key });
     }
 
     get submenuAnimation() {
         return this.root ? 'expanded' : (this.active ? 'expanded' : 'collapsed');
     }
 
-    @HostBinding('class.active-menuitem') 
+    @HostBinding('class.active-menuitem')
     get activeClass() {
         return this.active && !this.root;
     }

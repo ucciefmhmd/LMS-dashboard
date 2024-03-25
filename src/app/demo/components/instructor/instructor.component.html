@@ -10,7 +10,7 @@
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
                             (click)="clear(dt1)"></button>
-                        <button pButton label="Add Instructor" [routerLink]="['/uikit/instructor/addinstructor']"
+                        <button pButton label="Add Instructor" [routerLink]="['/instructor/addinstructor']"
                             class="p-button-outlined mb-2"></button>
                         <span class="p-input-icon-left mb-2">
                             <i class="pi pi-search"></i>
@@ -96,7 +96,7 @@
                         <td>
                             <div class="p-toolbar-group-left flex flex-wrap">
                                 <button pButton type="button" icon="pi pi-pencil"
-                                    [routerLink]="['/uikit/instructor/eidtinstructor', instructor.id]"
+                                    [routerLink]="['/instructor/eidtinstructor', instructor.id]"
                                     class="p-button-success mr-2"></button>
                                 <button pButton type="button" icon="pi pi-trash" (click)="remove(instructor.id)"
                                     class="p-button-danger"></button>

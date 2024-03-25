@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { IInstructor } from '../../Model/iinstructor';
-import { InstructorService } from '../../API-Services/instructor.service';
 import { IExam } from './iexam';
 import { ExamService } from './exam.service';
 
@@ -28,11 +26,9 @@ export class ExamComponent implements OnInit {
 
     ngOnInit() {
         this.loadexam();
-        this.examService.newInstrcutorAdded.subscribe(() => {
+        this.examService.newExamAdded.subscribe(() => {
             this.loadexam();
         });
-        // @ts-ignore
-        //this.instrcutors.forEach((inst) => (inst.date = new Date(inst.date)));
     }
 
     loadexam() {

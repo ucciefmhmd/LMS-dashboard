@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-course',
-  standalone: true,
-  imports: [],
-  templateUrl: './course.component.html',
-  styleUrl: './course.component.scss'
+    templateUrl: './course.component.html',
+    styleUrl: './course.component.scss',
 })
-export class CourseComponent {
-
-}
+export class CourseComponent {}

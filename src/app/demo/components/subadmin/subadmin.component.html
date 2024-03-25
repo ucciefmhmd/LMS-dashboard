@@ -10,7 +10,7 @@
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
                             (click)="clear(dt1)"></button>
-                        <button pButton label="Add Subadmin" [routerLink]="['/uikit/subadmin/addsubadmin']"
+                        <button pButton label="Add Subadmin" [routerLink]="['/subadmin/addsubadmin']"
                             class="p-button-outlined mb-2"></button>
                         <span class="p-input-icon-left mb-2">
                             <i class="pi pi-search"></i>
@@ -86,7 +86,7 @@
                         <td>
                             <div class="p-toolbar-group-left flex flex-wrap">
                                 <button pButton type="button" icon="pi pi-pencil"
-                                    [routerLink]="['/uikit/subadmin/editsubadmin', subadmin.id]"
+                                    [routerLink]="['/subadmin/editsubadmin', subadmin.id]"
                                     class="p-button-success mr-2"></button>
                                 <button pButton type="button" icon="pi pi-trash" (click)="remove(subadmin.id)"
                                     class="p-button-danger"></button>

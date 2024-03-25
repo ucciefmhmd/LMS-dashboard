@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -16,9 +17,18 @@ export class LoginService {
         console.log(this.currentUser);
     }
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient, private route: Router) {
+        if(localStorage.getItem('userToken') != null)
+            this.saveTokenUser();
+    }
 
     login(formData: any): Observable<any> {
         return this.httpClient.post(this.baseURL, formData);
+    }
+
+    logout() {
+        this.currentUser.next(null);
+        localStorage.removeItem('userToken');
+        this.route.navigate(['/auth/login']);
     }
 }
