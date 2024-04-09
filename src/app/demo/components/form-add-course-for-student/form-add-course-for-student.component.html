@@ -1,0 +1,30 @@
+<div class="grid p-fluid">
+    <div class="col-12 ">
+        <div class="card">
+            <h5 class="mb-5">Add Course and Instructor for Student</h5>
+
+            <form [formGroup]="StdCourseInstForm" (ngSubmit)="onSubmit($event)">
+                <div class="field">
+                    <span class="p-float-label mb-4">
+                        <p-dropdown inputId="courseId" [options]="allCourse" formControlName="courseId"
+                            optionLabel="name"></p-dropdown>
+                        <label for="courseId">Course Name</label>
+                    </span>
+                </div>
+
+                <div class="field" *ngIf="isShow">
+                    <span class="p-float-label mb-4">
+                        <p-dropdown inputId="instructorId" [options]="allInstructors" formControlName="instructorId"
+                            optionLabel="name"></p-dropdown>
+                        <label for="instructorId">Select Instructor</label>
+                    </span>
+                </div>
+
+
+                <button pButton label="Submit" type="submit" class="p-button p-button-primary"></button>
+            </form>
+
+
+        </div>
+    </div>
+</div>

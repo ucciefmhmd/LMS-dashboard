@@ -20,6 +20,9 @@ export class QuestionService {
     getById(id: number): Observable<IQuestion> {
         return this.httpClient.get<IQuestion>(`${this.baseURL}/${id}`);
     }
+    getexamById(examId: number): Observable<IQuestion[]> {
+        return this.httpClient.get<IQuestion[]>(`${this.baseURL}/exam/${examId}`);
+    }
 
     Add(question: IQuestion) {
         return this.httpClient.post(this.baseURL, question).pipe(
@@ -30,7 +33,11 @@ export class QuestionService {
     }
 
     Edit(id: number, question: IQuestion) {
-        return this.httpClient.put(`${this.baseURL}/${id}`, question);
+        return this.httpClient.put(`${this.baseURL}/${id}`, question).pipe(
+            tap(() => {
+                this.newQuestionAdded.next();
+            })
+        );
     }
 
     Delete(id: number) {

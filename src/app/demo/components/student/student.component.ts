@@ -1,8 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    ElementRef,
+    EventEmitter,
+} from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { IStudent } from '../../Model/istudent';
 import { StudentService } from '../../API-Services/student.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupComponent } from '../popup/popup.component';
 
 interface expandedRows {
     [key: string]: boolean;
@@ -22,17 +30,20 @@ export class StudentComponent implements OnInit {
 
     loading: boolean = true;
 
+    isOpen: boolean = false;
+
     @ViewChild('filter') filter!: ElementRef;
 
-    constructor(private stdServices: StudentService) {}
+    constructor(
+        private stdServices: StudentService,
+        private dialog: MatDialog
+    ) {}
 
     ngOnInit() {
         this.loadStudents();
         this.stdServices.newStudentAdded.subscribe(() => {
             this.loadStudents();
         });
-        // @ts-ignore
-        //this.students.forEach((std) => (std.date = new Date(std.date)));
     }
 
     loadStudents() {
@@ -42,12 +53,24 @@ export class StudentComponent implements OnInit {
         });
     }
 
-    remove(id: any): void {
-        console.log(id);
-        this.stdServices.Delete(id).subscribe(() => {
-            this.loadStudents();
+    openPopup(studentID: number) {
+        const dialogRef = this.dialog.open(PopupComponent, {
+            width: '400px',
+            height: '230px',
+            data: { id: studentID, objectType: 'student' },
         });
+
+         dialogRef.componentInstance.itemDeleted.subscribe(() => {
+             this.loadStudents();
+         });
     }
+
+    // remove(id: any): void {
+    //     console.log(id);
+    //     this.stdServices.Delete(id).subscribe(() => {
+    //         this.loadStudents();
+    //     });
+    // }
 
     onGlobalFilter(table: Table, event: Event) {
         table.filterGlobal(

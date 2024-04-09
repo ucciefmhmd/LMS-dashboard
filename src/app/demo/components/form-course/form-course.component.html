@@ -1,0 +1,111 @@
+<div class="grid p-fluid">
+    <div class="col-12 ">
+        <div class="card">
+            <h5>Course Data</h5>
+
+            <form class="row g-3" [formGroup]="CourseForm" (ngSubmit)="onSubmit($event)">
+                <label for="name">Name</label>
+                <span class="p-float-label">
+                    <input pInputText type="text" id="name" formControlName="name" class="form-control"
+                        placeholder="EX: PHP" required
+                        [ngClass]="{'is-valid': getFormControl('name').valid, 'is-invalid': getFormControl('name').invalid && getFormControl('name').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('name').errors && getFormControl('name').touched">
+                        <ng-container *ngIf="getFormControl('name').hasError('required')">Name is
+                            required</ng-container>
+                        <ng-container *ngIf="getFormControl('name').hasError('minlength')">Name must be at least 3
+                            characters</ng-container>
+
+                    </div>
+                </span>
+
+
+
+                <label for="description">Description</label>
+                <span class="p-float-label">
+                    <input pInputText type="text" id="description" formControlName="description" class="form-control"
+                        placeholder="Enter description" required
+                        [ngClass]="{'is-valid': getFormControl('description').valid, 'is-invalid': getFormControl('description').invalid && getFormControl('description').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('description').errors && getFormControl('description').touched">
+                        <ng-container *ngIf="getFormControl('description').hasError('required')">Description is
+                            required</ng-container>
+                        <ng-container *ngIf="getFormControl('description').hasError('minlength')">Description must be at
+                            least 4
+                            characters</ng-container>
+                    </div>
+                </span>
+
+
+                <label for="start_Date">Start Date</label>
+                <span class="p-float-label">
+                    <input pInputText type="date" id="start_Date" formControlName="start_Date" class="form-control"
+                        required [ngClass]="{
+                        'is-valid': getFormControl('start_Date').valid,
+                        'is-invalid': getFormControl('start_Date').invalid && getFormControl('start_Date').touched
+                    }" (blur)="getValue($event)" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('start_Date').errors && getFormControl('start_Date').touched">
+                        <ng-container *ngIf="getFormControl('start_Date').hasError('required')">Start date is
+                            required</ng-container>
+                        <ng-container *ngIf="getFormControl('start_Date').hasError('minDate')">Please enter a future
+                            date</ng-container>
+                        <ng-container *ngIf="getFormControl('start_Date').hasError('sDate')">Please enter a Date less
+                            than End Date </ng-container>
+                    </div>
+                </span>
+
+
+                <label for="end_Date">End Date</label>
+                <span class="p-float-label">
+                    <input pInputText type="date" id="end_Date" formControlName="end_Date" class="form-control" required
+                        [ngClass]="{'is-valid': getFormControl('end_Date').valid, 'is-invalid': getFormControl('end_Date').invalid && getFormControl('end_Date').touched}"
+                        (blur)="getEndValue($event)" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('end_Date').errors && getFormControl('end_Date').touched">
+                        <ng-container *ngIf="getFormControl('end_Date').hasError('required')">End date is
+                            required</ng-container>
+                        <ng-container *ngIf="getFormControl('end_Date').hasError('endDateBeforeStart')">End date must be
+                            after
+                            start date
+                        </ng-container>
+                    </div>
+                </span>
+
+                <div *ngIf="!isEdit">
+                    <label for="imageFile">Photo</label>
+                    <span class="p-float-label">
+                        <input pInputText type="file" id="imageFile" formControlName="imageFile" class="form-control"
+                             required (change)="onFileSelected($event)"
+                            [ngClass]="{'is-valid': getFormControl('imageFile').valid, 'is-invalid': getFormControl('imageFile').invalid && getFormControl('imageFile').touched}" />
+                        <div class="invalid-feedback error-message"
+                            *ngIf="getFormControl('imageFile').errors && getFormControl('imageFile').touched">
+                            <ng-container *ngIf="getFormControl('imageFile').hasError('required')">Photo is
+                                required</ng-container>
+                            <ng-container *ngIf="getFormControl('imageFile').hasError('invalidFileType')">Invalid photo
+                                type. Please select
+                                a JPG, JPEG, or PNG photo.</ng-container>
+                        </div>
+                    </span>
+                </div>
+
+                <label for="material">Material</label>
+                <span class="p-float-label">
+                    <input pInputText type="text" id="material" formControlName="material" class="form-control"
+                        placeholder="Enter material number" required
+                        [ngClass]="{'is-valid': getFormControl('material').valid, 'is-invalid': getFormControl('material').invalid && getFormControl('material').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('material').errors && getFormControl('material').touched">
+                        <ng-container *ngIf="getFormControl('material').hasError('required')">material is
+                            required</ng-container>
+                    </div>
+                </span>
+
+
+                <button pButton label="Submit" type="submit" class="p-button p-button-primary"></button>
+
+            </form>
+
+        </div>
+    </div>
+</div>

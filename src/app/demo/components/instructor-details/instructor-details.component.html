@@ -1,0 +1,62 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="info">
+                        <img [src]="InstructorData.userAttachmentPath" alt="" class="mb-3">
+                        <div><label class="file-upload-btn btn btn-success mb-3">
+                                <input type="file" (change)="onFileSelected($event)" style="display: none;">
+                                <i class="fas fa-upload"></i> Change Photo
+                            </label></div>
+                        <h1 class="my-3">{{InstructorData.name}}</h1>
+                        <div class="mb-3" *ngIf="InstructorData">
+                            <span class="boldData">Specialization : </span>
+                            <span>{{InstructorData.specialization}}</span>
+                        </div>
+                        <div class="mb-3" *ngIf="InstructorData">
+                            <span class="boldData">Address : </span>
+                            <span>{{InstructorData.address}}</span>
+                        </div>
+
+                        <div class="mb-3" *ngIf="InstructorData">
+                            <span class="boldData">Email : </span>
+                            <span>{{InstructorData.email}}</span>
+                        </div>
+                        <div class="mb-3" *ngIf="InstructorData">
+                            <span class="boldData">Phone : </span>
+                            <span>{{InstructorData.phone}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-5">
+                    <div class="mt-5 pt-5">
+                        <div class="card-info">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Courses</th>
+                                        <!-- <th>Number Of Exam</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    <ng-container *ngIf="InstructorData && InstructorData.courseName">
+                                        <tr *ngFor="let course of InstructorData.courseName">
+                                            <td>{{ course }}</td>
+                                            <!-- <td>{{ getNumberOfExams(course) }}</td> -->
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div *ngIf="!loading && !InstructorData">
+                        Data not available.
+                    </div>
+                </div>
+
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>

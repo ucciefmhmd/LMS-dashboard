@@ -1,0 +1,79 @@
+<!-- <div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="info">
+                        <div class="text-center headerExam pb-4">
+                            <div>
+                                <h2>{{examData.name}}</h2>
+                                <p><span class="boldData">Duration : </span>
+                                    <span>{{examData.duration}}</span>
+                                </p>
+                                <p><span class="boldData">Subject : </span>
+                                    <span>{{examData.courseName}}</span>
+                                </p>
+                                <p><span class="boldData">Degree : </span>
+                                    <span>{{examData.max_Degree}}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3 p-4 headerExam">
+                    <div class="my-4" *ngFor="let ques of questions">
+                        <h1>{{ ques.question }}</h1>
+                        <h1>{{ ques.choosesName[0] }}</h1>
+
+                        <ul class="ulist">
+                            <li *ngFor="let choose of ques.choosesName; let i = index">
+                                {{ i + 1 }} - {{ choose }}
+                            </li>
+                        </ul>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="info">
+                        <div class="text-center headerExam pb-4">
+                            <div>
+                                <h2>{{ examData?.name }}</h2>
+                                <p><span class="boldData">Duration : </span>
+                                    <span>{{ examData?.duration }}</span>
+                                </p>
+                                <p><span class="boldData">Subject : </span>
+                                    <span>{{ courseName }}</span>
+                                </p>
+                                <p><span class="boldData">Degree : </span>
+                                    <span>{{ examData?.max_Degree }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3 p-4 headerExam">
+                    <div class="my-4 question" *ngFor="let ques of questions">
+                        <h1  [routerLink]="['/question/formquestion', ques.id]">{{ ques.question }}</h1>
+
+                        <ul class="ulist">
+                            <li *ngFor="let choose of ques.choosesName; let i = index">
+                                {{ i + 1 }} - {{ choose }}
+                            </li>
+                        </ul>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,7 +7,7 @@ import { IExam } from './iexam';
     providedIn: 'root',
 })
 export class ExamService {
-    baseURL: string = 'http://localhost:5050/Exam';
+    baseURL: string = 'http://localhost:5050/exam';
 
     newExamAdded: Subject<void> = new Subject<void>();
 
@@ -21,16 +21,16 @@ export class ExamService {
         return this.httpClient.get<IExam>(`${this.baseURL}/${id}`);
     }
 
-    Add(instructor: IExam) {
-        return this.httpClient.post(this.baseURL, instructor).pipe(
+    Add(exam: IExam) {
+        return this.httpClient.post(this.baseURL, exam).pipe(
             tap(() => {
                 this.newExamAdded.next();
             })
         );
     }
 
-    Edit(id: number, instructor: IExam) {
-        return this.httpClient.put(`${this.baseURL}/${id}`, instructor);
+    Edit(id: number, exam: IExam) {
+        return this.httpClient.put(`${this.baseURL}/${id}`, exam);
     }
 
     Delete(id: number) {

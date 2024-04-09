@@ -135,6 +135,140 @@ import { AuthGuard } from './auth.guard';
                                     './demo/components/course/course.module'
                                 ).then((m) => m.CourseModule),
                         },
+                        {
+                            path: 'course/formcourse',
+                            canActivate: [AuthGuard],
+                            data: { breadcrumb: 'course/formcourse' },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/form-course/form-course.module'
+                                ).then((m) => m.FormCourseModule),
+                        },
+                        {
+                            path: 'course/formcourse/:id',
+                            canActivate: [AuthGuard],
+                            data: { breadcrumb: 'course/formcourse' },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/form-course/form-course.module'
+                                ).then((m) => m.FormCourseModule),
+                        },
+                        {
+                            path: 'event',
+                            canActivate: [AuthGuard],
+                            data: { breadcrumb: 'event' },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/event/event.module'
+                                ).then((m) => m.EventModule),
+                        },
+                        {
+                            path: 'event/formevent',
+                            canActivate: [AuthGuard],
+                            data: { breadcrumb: 'event/formevent' },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/form-event/form-event.module'
+                                ).then((m) => m.FormEventModule),
+                        },
+                        {
+                            path: 'event/formevent/:id',
+                            canActivate: [AuthGuard],
+                            data: { breadcrumb: 'event/formevent' },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/form-event/form-event.module'
+                                ).then((m) => m.FormEventModule),
+                        },
+                        {
+                            path: 'exam/formexam',
+                            canActivate: [AuthGuard],
+                            data: { breadcrumb: 'exam/formexam' },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/form-exam/form-exam.module'
+                                ).then((m) => m.FormExamModule),
+                        },
+                        {
+                            path: 'exam/formexam/:id',
+                            canActivate: [AuthGuard],
+                            data: { breadcrumb: 'exam/formexam' },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/form-exam/form-exam.module'
+                                ).then((m) => m.FormExamModule),
+                        },
+                        {
+                            path: 'question/formquestion',
+                            canActivate: [AuthGuard],
+                            data: { breadcrumb: 'question/formquestion' },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/form-question/form-question.module'
+                                ).then((m) => m.FormQuestionModule),
+                        },
+                        {
+                            path: 'question/formquestion/:id',
+                            canActivate: [AuthGuard],
+                            data: { breadcrumb: 'question/formquestion' },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/form-question/form-question.module'
+                                ).then((m) => m.FormQuestionModule),
+                        },
+                        {
+                            path: 'student/studentDetails/:id',
+                            canActivate: [AuthGuard],
+                            data: { breadcrumb: 'student/studentDetails' },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/student-details/student-details.module'
+                                ).then((m) => m.StudentDetailsModule),
+                        },
+                        {
+                            path: 'instructor/instructorDetails/:id',
+                            canActivate: [AuthGuard],
+                            data: {
+                                breadcrumb: 'instructor/instructorDetails',
+                            },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/instructor-details/instructor-details.module'
+                                ).then((m) => m.InstructorDetailsModule),
+                        },
+                        {
+                            path: 'exam/examDetails/:id',
+                            canActivate: [AuthGuard],
+                            data: {
+                                breadcrumb: 'exam/examDetails',
+                            },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/exam-details/exam-details.module'
+                                ).then((m) => m.ExamDetailsModule),
+                        },
+                        {
+                            path: 'event/eventDetails/:id',
+                            canActivate: [AuthGuard],
+                            data: {
+                                breadcrumb: 'event/eventDetails',
+                            },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/event-details/event-details.module'
+                                ).then((m) => m.EventDetailsModule),
+                        },
+                        {
+                            path: 'student/addcourse/:id',
+                            canActivate: [AuthGuard],
+                            data: {
+                                breadcrumb: 'student/addcourse',
+                            },
+                            loadChildren: () =>
+                                import(
+                                    './demo/components/form-add-course-for-student/form-add-course-for-student.module'
+                                ).then((m) => m.FormAddCourseForStudentModule),
+                        },
                     ],
                 },
                 {

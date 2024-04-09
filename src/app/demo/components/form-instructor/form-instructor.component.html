@@ -20,6 +20,23 @@
                     </div>
                 </span>
 
+                <label for="ssn">SSN</label>
+                <span class="p-float-label">
+                    <input pInputText type="text" id="ssn" formControlName="ssn" class="form-control"
+                        placeholder="Enter SSN" required
+                        [ngClass]="{'is-valid': getFormControl('ssn').valid, 'is-invalid': getFormControl('ssn').invalid && getFormControl('ssn').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('ssn').errors && getFormControl('ssn').touched">
+                        <ng-container *ngIf="getFormControl('ssn').hasError('required')">SSN is required</ng-container>
+                        <ng-container *ngIf="getFormControl('ssn').hasError('numeric')">must contain only
+                            numbers</ng-container><br>
+                        <ng-container
+                            *ngIf="getFormControl('ssn').hasError('minlength') || getFormControl('ssn').hasError('maxlength')">
+                            must be exactly 14 digits</ng-container>
+                    </div>
+                </span>
+
+
                 <label for="email">Email</label>
                 <span class="p-float-label">
                     <input pInputText type="email" id="email" formControlName="email" class="form-control"
@@ -36,9 +53,11 @@
 
                 <label for="password">Password</label>
                 <span class="p-float-label">
-                    <input pInputText type="password" id="password" formControlName="password" class="form-control"
-                        placeholder="Enter password" required
-                        [ngClass]="{'is-valid': getFormControl('password').valid, 'is-invalid': getFormControl('password').invalid && getFormControl('password').touched}" />
+                    <p-password [toggleMask]="true" type="password" id="password" formControlName="password"
+                        class="form-control" placeholder="Enter password" required inputStyleClass="w-full p-3"
+                        styleClass="mb-2"
+                        [ngClass]="{'is-valid': getFormControl('password').valid, 'is-invalid': getFormControl('password').invalid && getFormControl('password').touched}">
+                    </p-password>
                     <div class="invalid-feedback error-message"
                         *ngIf="getFormControl('password').errors && getFormControl('password').touched">
                         <ng-container *ngIf="getFormControl('password').hasError('required')">Password is
@@ -57,28 +76,35 @@
                         *ngIf="getFormControl('phone').errors && getFormControl('phone').touched">
                         <ng-container *ngIf="getFormControl('phone').hasError('required')">Phone is
                             required</ng-container>
+                        <ng-container
+                            *ngIf="getFormControl('phone').hasError('minlength') || getFormControl('phone').hasError('maxlength')">
+                            must be exactly 11 digits</ng-container><br>
                         <ng-container *ngIf="getFormControl('phone').hasError('pattern')">Please enter a valid phone
                             number</ng-container>
+
                     </div>
                 </span>
 
-                <label for="photo">Photo</label>
-                <span class="p-float-label">
-                    <input pInputText type="tel" id="photo" formControlName="photo" class="form-control"
-                        placeholder="Enter photo number" required
-                        [ngClass]="{'is-valid': getFormControl('photo').valid, 'is-invalid': getFormControl('photo').invalid && getFormControl('photo').touched}" />
-                    <div class="invalid-feedback error-message"
-                        *ngIf="getFormControl('photo').errors && getFormControl('photo').touched">
-                        <ng-container *ngIf="getFormControl('photo').hasError('required')">photo is
-                            required</ng-container>
-                        <ng-container *ngIf="getFormControl('photo').hasError('pattern')">Enter a valid photo
-                            number</ng-container>
-                    </div>
-                </span>
+                <div *ngIf="!isEdit">
+                    <label for="imageFile">Photo</label>
+                    <span class="p-float-label">
+                        <input pInputText type="file" id="imageFile" formControlName="imageFile" class="form-control"
+                            placeholder="Enter imageFile number" required (change)="onFileSelected($event)"
+                            [ngClass]="{'is-valid': getFormControl('imageFile').valid, 'is-invalid': getFormControl('imageFile').invalid && getFormControl('imageFile').touched}" />
+                        <div class="invalid-feedback error-message"
+                            *ngIf="getFormControl('imageFile').errors && getFormControl('imageFile').touched">
+                            <ng-container *ngIf="getFormControl('imageFile').hasError('required')">photo is
+                                required</ng-container>
+                            <ng-container *ngIf="getFormControl('imageFile').hasError('invalidFileType')">Invalid photo
+                                type. Please select
+                                a JPG, JPEG, or PNG photo.</ng-container>
+                        </div>
+                    </span>
+                </div>
 
                 <label for="address">Address</label>
                 <span class="p-float-label">
-                    <input pInputText type="tel" id="address" formControlName="address" class="form-control"
+                    <input pInputText type="text" id="address" formControlName="address" class="form-control"
                         placeholder="Enter address number" required
                         [ngClass]="{'is-valid': getFormControl('address').valid, 'is-invalid': getFormControl('address').invalid && getFormControl('address').touched}" />
                     <div class="invalid-feedback error-message"
@@ -90,19 +116,43 @@
                     </div>
                 </span>
 
+                <label for="experience">Experience</label>
+                <span class="p-float-label">
+                    <input pInputText type="text" id="experience" formControlName="experience" class="form-control"
+                        placeholder="Enter experience number" required
+                        [ngClass]="{'is-valid': getFormControl('experience').valid, 'is-invalid': getFormControl('experience').invalid && getFormControl('experience').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('experience').errors && getFormControl('experience').touched">
+                        <ng-container *ngIf="getFormControl('experience').hasError('required')">experience is
+                            required</ng-container>
+                    </div>
+                </span>
+
                 <label for="specialization">Specialization</label>
                 <span class="p-float-label">
-                    <input pInputText type="tel" id="specialization" formControlName="specialization" class="form-control"
-                        placeholder="Enter specialization number" required
+                    <input pInputText type="tel" id="specialization" formControlName="specialization"
+                        class="form-control" placeholder="Enter specialization number" required
                         [ngClass]="{'is-valid': getFormControl('specialization').valid, 'is-invalid': getFormControl('specialization').invalid && getFormControl('specialization').touched}" />
                     <div class="invalid-feedback error-message"
                         *ngIf="getFormControl('specialization').errors && getFormControl('specialization').touched">
                         <ng-container *ngIf="getFormControl('specialization').hasError('required')">Specialization is
                             required</ng-container>
-                        <ng-container *ngIf="getFormControl('specialization').hasError('pattern')">Specialization must be at least 2
+                        <ng-container *ngIf="getFormControl('specialization').hasError('pattern')">Specialization must
+                            be at least 2
                             characters</ng-container>
                     </div>
                 </span>
+
+
+
+                <div class="field">
+                    <span class="p-float-label mb-4">
+                        <p-multiSelect inputId="courseName" [options]="allCourses" optionLabel="name" optionValue="name"
+                            formControlName="courseName" required [filter]="false"></p-multiSelect>
+
+                        <label for="courseName">Select courseName</label>
+                    </span>
+                </div>
 
                 <button pButton label="Submit" type="submit" class="p-button p-button-primary"></button>
 

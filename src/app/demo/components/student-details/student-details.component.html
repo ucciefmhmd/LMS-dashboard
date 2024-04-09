@@ -1,0 +1,81 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="info">
+                        <img [src]="StudentData.userAttachmentPath" alt="" class="mb-3">
+                        <div><label class="file-upload-btn btn btn-success mb-3">
+                                <input type="file" (change)="onFileSelected($event)"
+                                    style="display: none;">
+                                <i class="fas fa-upload"></i> Change Photo
+                            </label></div>
+                        <h1 class="my-3">{{StudentData.name}}</h1>
+
+                        <div class="mb-3" *ngIf="StudentData">
+                            <span class="boldData">Age : </span>
+                            <span>{{StudentData.age}}</span>
+                        </div>
+                        <div class="mb-3" *ngIf="StudentData">
+                            <span class="boldData">Address : </span>
+                            <span>{{StudentData.address}}</span>
+                        </div>
+                        <div class="mb-3" *ngIf="StudentData">
+                            <span class="boldData">Title : </span>
+                            <span>{{StudentData.title}}</span>
+                        </div>
+                        <div class="mb-3" *ngIf="StudentData">
+                            <span class="boldData">Email : </span>
+                            <span>{{StudentData.email}}</span>
+                        </div>
+                        <div class="mb-3" *ngIf="StudentData">
+                            <span class="boldData">Phone : </span>
+                            <span>{{StudentData.phone}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 mt-5">
+                    <div class="mt-5 pt-5">
+                        <div class="card-info">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Courses</th>
+                                        <th>Instructors</th>
+                                        <!-- <th>Events</th> -->
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <ng-container *ngFor="let inst of instName; let i = index">
+                                        <tr>
+                                            <td>{{ StudentData.courseName[i]}}</td>
+                                            <td>{{ inst }}</td>
+                                            <!-- <td>
+                                                <ng-container *ngIf="event">
+                                                    {{ event.name }}
+                                                </ng-container>
+                                                <ng-container *ngIf="!event">
+                                                    No event
+                                                </ng-container>
+                                            </td> -->
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+
+                            </table>
+
+                            <div>
+                                <button [routerLink]="['/student/addcourse', studentID]"
+                                    class="p-button p-button-primary mt-4 p-2">Add Course and Instrcutor</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!loading && !this.StudentData">
+                        Data not available.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

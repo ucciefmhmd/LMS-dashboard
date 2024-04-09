@@ -27,6 +27,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { FormInstructorComponent } from './form-instructor.component';
 import { FormInstructorRoutingModule } from './forminstructor-routing.module';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
     declarations: [FormInstructorComponent],
@@ -59,6 +60,7 @@ import { FormInstructorRoutingModule } from './forminstructor-routing.module';
         ButtonModule,
         InputGroupModule,
         InputGroupAddonModule,
+        PasswordModule
     ],
 })
 export class FormInstructorModule {}

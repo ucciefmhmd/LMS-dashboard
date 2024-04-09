@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { IQuestion } from '../../Model/iquestion';
+import { PopupComponent } from '../popup/popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 interface expandedRows {
     [key: string]: boolean;
@@ -23,7 +25,7 @@ export class QuestionComponent implements OnInit {
 
     @ViewChild('filter') filter!: ElementRef;
 
-    constructor(private questionService: QuestionService) {}
+    constructor(private questionService: QuestionService, private dialog:MatDialog) {}
 
     ngOnInit() {
         this.loadquestion();
@@ -39,12 +41,24 @@ export class QuestionComponent implements OnInit {
         });
     }
 
-    remove(id: any): void {
-        console.log(id);
-        this.questionService.Delete(id).subscribe(() => {
-            this.loadquestion();
+    openPopup(quesID: number) {
+        const dialogRef = this.dialog.open(PopupComponent, {
+            width: '400px',
+            height: '230px',
+            data: { id: quesID, objectType: 'question' },
         });
+
+         dialogRef.componentInstance.itemDeleted.subscribe(() => {
+             this.loadquestion();
+         });
     }
+
+    // remove(id: any): void {
+    //     console.log(id);
+    //     this.questionService.Delete(id).subscribe(() => {
+    //         this.loadquestion();
+    //     });
+    // }
 
     onGlobalFilter(table: Table, event: Event) {
         table.filterGlobal(

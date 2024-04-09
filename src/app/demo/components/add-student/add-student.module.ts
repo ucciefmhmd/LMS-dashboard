@@ -27,38 +27,42 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { AddStudentComponent } from './add-student.component';
 import { AddStudentRoutingModule } from './add-student-routing.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
-  declarations: [AddStudentComponent],
-  imports: [
+    declarations: [AddStudentComponent],
+    imports: [
         ReactiveFormsModule,
         AddStudentRoutingModule,
         CommonModule,
-		FormsModule,
-		AutoCompleteModule,
-		CalendarModule,
-		ChipsModule,
-		DropdownModule,
-		InputMaskModule,
-		InputNumberModule,
-		ColorPickerModule,
-		CascadeSelectModule,
-		MultiSelectModule,
-		ToggleButtonModule,
-		SliderModule,
-		InputTextareaModule,
-		RadioButtonModule,
-		InputTextModule,
-		RatingModule,
-		ChipModule,
-		KnobModule,
-		InputSwitchModule,
-		ListboxModule,
-		SelectButtonModule,
-		CheckboxModule,
-		ButtonModule,
-		InputGroupModule,
-		InputGroupAddonModule
-  ],
+        FormsModule,
+        AutoCompleteModule,
+        CalendarModule,
+        ChipsModule,
+        DropdownModule,
+        InputMaskModule,
+        InputNumberModule,
+        ColorPickerModule,
+        CascadeSelectModule,
+        MultiSelectModule,
+        ToggleButtonModule,
+        SliderModule,
+        InputTextareaModule,
+        RadioButtonModule,
+        InputTextModule,
+        RatingModule,
+        ChipModule,
+        KnobModule,
+        InputSwitchModule,
+        ListboxModule,
+        SelectButtonModule,
+        CheckboxModule,
+        ButtonModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        MatDialogModule,
+        PasswordModule
+    ],
 })
-export class AddStudentModule { }
+export class AddStudentModule {}

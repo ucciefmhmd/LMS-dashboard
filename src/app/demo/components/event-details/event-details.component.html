@@ -1,0 +1,57 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="info">
+                        <h1 class="my-3 text-center ">{{eventData.name}}</h1>
+                        <div class="mb-3" *ngIf="eventData">
+                            <span class="boldData">Description : </span>
+                            <span>{{eventData.description}}</span>
+                        </div>
+                        <div class="mb-3" *ngIf="eventData">
+                            <span class="boldData">start_Date : </span>
+                            <span>{{eventData.start_Date}}</span>
+                        </div>
+                        <div class="mb-3" *ngIf="eventData">
+                            <span class="boldData">end_Date : </span>
+                            <span>{{eventData.end_Date}}</span>
+                        </div>
+                        <div class="mb-3" *ngIf="eventData">
+                            <span class="boldData">hyperLink : </span>
+                            <span><a href="{{eventData.hyperLink}}">{{eventData.hyperLink}}</a></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-7 mt-5">
+                    <div class="mt-5 pt-5">
+                        <div class="card-info">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Courses</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    <ng-container *ngIf="eventData && eventData.coursesName">
+                                        <tr *ngFor="let course of eventData.coursesName">
+                                            <td>{{ course }}</td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div *ngIf="!loading && !eventData">
+                        Data not available.
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <button class="btn btn-info" [routerLink]="['/event']">Back to Events</button>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -20,6 +20,23 @@
                     </div>
                 </span>
 
+                <label for="ssn">SSN</label>
+                <span class="p-float-label">
+                    <input pInputText type="text" id="ssn" formControlName="ssn" class="form-control"
+                        placeholder="Enter SSN" required
+                        [ngClass]="{'is-valid': getFormControl('ssn').valid, 'is-invalid': getFormControl('ssn').invalid && getFormControl('ssn').touched}" />
+                    <div class="invalid-feedback error-message"
+                        *ngIf="getFormControl('ssn').errors && getFormControl('ssn').touched">
+                        <ng-container *ngIf="getFormControl('ssn').hasError('required')">SSN is required</ng-container>
+                        <ng-container *ngIf="getFormControl('ssn').hasError('numeric')">must contain only
+                            numbers</ng-container><br>
+                        <ng-container
+                            *ngIf="getFormControl('ssn').hasError('minlength') || getFormControl('ssn').hasError('maxlength')">
+                            must be exactly 14 digits</ng-container>
+                    </div>
+                </span>
+
+
                 <label for="age">Age</label>
                 <span class="p-float-label">
                     <input pInputText type="number" id="age" formControlName="age" class="form-control"
@@ -28,6 +45,7 @@
                     <div class="invalid-feedback error-message"
                         *ngIf="getFormControl('age').errors && getFormControl('age').touched">
                         <ng-container *ngIf="getFormControl('age').hasError('required')">Age is required</ng-container>
+                        <ng-container *ngIf="getFormControl('age').hasError('min')">Must be more than 18</ng-container>
                     </div>
                 </span>
 
@@ -40,22 +58,28 @@
                         *ngIf="getFormControl('email').errors && getFormControl('email').touched">
                         <ng-container *ngIf="getFormControl('email').hasError('required')">Email is
                             required</ng-container>
-                        <ng-container *ngIf="getFormControl('email').hasError('email')">Please enter a valid email address</ng-container>
+                        <ng-container *ngIf="getFormControl('email').hasError('email')">Please enter a valid email
+                            address</ng-container>
                     </div>
                 </span>
 
+
                 <label for="password">Password</label>
                 <span class="p-float-label">
-                    <input pInputText type="password" id="password" formControlName="password" class="form-control"
-                        placeholder="Enter password" required
-                        [ngClass]="{'is-valid': getFormControl('password').valid, 'is-invalid': getFormControl('password').invalid && getFormControl('password').touched}" />
+                    <p-password [toggleMask]="true" type="password" id="password" formControlName="password"
+                        class="form-control" placeholder="Enter password" required inputStyleClass="w-full p-3"
+                        styleClass="mb-2"
+                        [ngClass]="{'is-valid': getFormControl('password').valid, 'is-invalid': getFormControl('password').invalid && getFormControl('password').touched}">
+                    </p-password>
                     <div class="invalid-feedback error-message"
                         *ngIf="getFormControl('password').errors && getFormControl('password').touched">
                         <ng-container *ngIf="getFormControl('password').hasError('required')">Password is
                             required</ng-container>
-                        <ng-container *ngIf="getFormControl('password').hasError('pattern')">Password must be like (Password$?123)</ng-container>
+                        <ng-container *ngIf="getFormControl('password').hasError('pattern')">Password must be like
+                            (Password$?123)</ng-container>
                     </div>
                 </span>
+
 
                 <label for="title">Title</label>
                 <span class="p-float-label">
@@ -82,26 +106,31 @@
                         *ngIf="getFormControl('phone').errors && getFormControl('phone').touched">
                         <ng-container *ngIf="getFormControl('phone').hasError('required')">Phone is
                             required</ng-container>
+                        <ng-container
+                            *ngIf="getFormControl('phone').hasError('minlength') || getFormControl('phone').hasError('maxlength')">
+                            must be exactly 11 digits</ng-container><br>
                         <ng-container *ngIf="getFormControl('phone').hasError('pattern')">Please enter a valid phone
                             number</ng-container>
+
                     </div>
                 </span>
 
-
-                <label for="photo">Photo</label>
-                <span class="p-float-label">
-                    <input pInputText type="tel" id="photo" formControlName="photo" class="form-control"
-                        placeholder="Enter photo number" required
-                        [ngClass]="{'is-valid': getFormControl('photo').valid, 'is-invalid': getFormControl('photo').invalid && getFormControl('photo').touched}" />
-                    <div class="invalid-feedback error-message"
-                        *ngIf="getFormControl('photo').errors && getFormControl('photo').touched">
-                        <ng-container *ngIf="getFormControl('photo').hasError('required')">photo is
-                            required</ng-container>
-                        <ng-container *ngIf="getFormControl('photo').hasError('pattern')">Enter a valid photo
-                            number</ng-container>
-                    </div>
-                </span>
-
+                <div *ngIf="!isEdit">
+                    <label for="imageFile">Photo</label>
+                    <span class="p-float-label">
+                        <input pInputText type="file" id="imageFile" formControlName="imageFile" class="form-control"
+                            placeholder="Enter imageFile number" required (change)="onFileSelected($event)"
+                            [ngClass]="{'is-valid': getFormControl('imageFile').valid, 'is-invalid': getFormControl('imageFile').invalid && getFormControl('imageFile').touched}" />
+                        <div class="invalid-feedback error-message"
+                            *ngIf="getFormControl('imageFile').errors && getFormControl('imageFile').touched">
+                            <ng-container *ngIf="getFormControl('imageFile').hasError('required')">Photo is
+                                required</ng-container>
+                            <ng-container *ngIf="getFormControl('imageFile').hasError('invalidFileType')">Invalid photo
+                                type. Please select
+                                a JPG, JPEG, or PNG photo.</ng-container>
+                        </div>
+                    </span>
+                </div>
 
                 <label for="address">Address</label>
                 <span class="p-float-label">
@@ -113,7 +142,7 @@
                         <ng-container *ngIf="getFormControl('address').hasError('required')">address is
                             required</ng-container>
                         <ng-container *ngIf="getFormControl('address').hasError('pattern')">Address must be at least 4
-                        characters</ng-container>
+                            characters</ng-container>
                     </div>
                 </span>
 

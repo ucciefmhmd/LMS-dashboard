@@ -17,23 +17,24 @@ import { RatingModule } from 'primeng/rating';
 import { SplitButtonModule } from 'primeng/splitbutton';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    StudentRoutingModule,
-    TableModule,
-    ButtonModule,
-    InputTextModule,
-    ToggleButtonModule,
-    RippleModule,
-    MultiSelectModule,
-    DropdownModule,
-    ProgressBarModule,
-    ToastModule,
-    SliderModule,
-    RatingModule,
-    SplitButtonModule
-  ],
-  declarations: [StudentComponent]
+    imports: [
+        CommonModule,
+        FormsModule,
+        StudentRoutingModule,
+        TableModule,
+        ButtonModule,
+        InputTextModule,
+        ToggleButtonModule,
+        RippleModule,
+        MultiSelectModule,
+        DropdownModule,
+        ProgressBarModule,
+        ToastModule,
+        SliderModule,
+        RatingModule,
+        SplitButtonModule,
+    ],
+    declarations: [StudentComponent],
+
 })
-export class StudentModule { }
+export class StudentModule {}

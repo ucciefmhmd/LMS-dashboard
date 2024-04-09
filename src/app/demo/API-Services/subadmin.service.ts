@@ -19,7 +19,7 @@ export class SubadminService {
         return this.httpClient.get<ISubadmin>(`${this.baseURL}/${id}`);
     }
 
-    Add(subadmin: ISubadmin) {
+    Add(subadmin: FormData) {
         return this.httpClient.post(this.baseURL, subadmin).pipe(
             tap(() => {
                 this.newSubadminAdded.next();
@@ -27,8 +27,36 @@ export class SubadminService {
         );
     }
 
-    Edit(id: number, subadmin: ISubadmin) {
-        return this.httpClient.put(`${this.baseURL}/${id}`, subadmin);
+    // Edit(id: number, subadmin: FormData) {
+    //     return this.httpClient.put(`${this.baseURL}/${id}`, subadmin).pipe(
+    //         tap(() => {
+    //             this.newSubadminAdded.next();
+    //         })
+    //     );
+    // }
+
+    Edit(id: number, subadmin: any): Observable<any> {
+        console.log(subadmin);
+
+        return this.httpClient
+            .put(`${this.baseURL}/${id}`, subadmin, {
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .pipe(
+                tap(() => {
+                    this.newSubadminAdded.next();
+                })
+            );
+    }
+
+    EditPhoto(id: number, subadminNewPhoto: FormData): Observable<any> {
+        return this.httpClient
+            .put(`${this.baseURL}/${id}/photo`, subadminNewPhoto)
+            .pipe(
+                tap(() => {
+                    this.newSubadminAdded.next();
+                })
+            );
     }
 
     Delete(id: number) {

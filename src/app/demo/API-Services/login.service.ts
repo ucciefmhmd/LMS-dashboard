@@ -14,12 +14,10 @@ export class LoginService {
     saveTokenUser() {
         let token: any = localStorage.getItem('userToken');
         this.currentUser.next(jwtDecode(token));
-        console.log(this.currentUser);
     }
 
     constructor(private httpClient: HttpClient, private route: Router) {
-        if(localStorage.getItem('userToken') != null)
-            this.saveTokenUser();
+        if (localStorage.getItem('userToken') != null) this.saveTokenUser();
     }
 
     login(formData: any): Observable<any> {

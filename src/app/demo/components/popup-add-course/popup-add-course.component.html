@@ -1,0 +1,27 @@
+<form [formGroup]="FormCourseInst" (ngSubmit)="confirmAddAnother()">
+    <div class="p-5 rounded d-flex justify-content-center align-content-center text-center">
+        <div class="pop">
+            <h1 mat-dialog-title class="py-4">Are you sure that you want to add another question?</h1>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Course Name</mat-label>
+                <mat-select formControlName="courseName" placeholder="Select course name">
+                    <mat-option *ngFor="let course of coursesName" [value]="course">{{ course }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Instructor Name</mat-label>
+                <mat-select formControlName="instName" placeholder="Select instructor name">
+                    <mat-option *ngFor="let inst of instructorsName" [value]="inst">{{ inst }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div mat-dialog-actions class="pt-4">
+                <button type="submit" [disabled]="FormCourseInst.invalid" mat-raised-button color="warn"
+                    class="btn btn-primary me-5 me-5">Confirm</button>
+                <button type="button" (click)="closePopup()" mat-raised-button mat-dialog-close color="accent"
+                    class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>

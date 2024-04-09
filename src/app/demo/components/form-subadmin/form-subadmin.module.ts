@@ -1,3 +1,4 @@
+import { PasswordModule } from 'primeng/password';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -59,6 +60,7 @@ import { FormSubadminRoutingModule } from './form-subadmin-routing.module';
         ButtonModule,
         InputGroupModule,
         InputGroupAddonModule,
+        PasswordModule
     ],
 })
 export class FormSubadminModule {}

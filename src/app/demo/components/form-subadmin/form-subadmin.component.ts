@@ -12,7 +12,9 @@ import { ISubadmin } from '../../Model/isubadmin';
     providers: [MessageService],
 })
 export class FormSubadminComponent {
-     SubadminForm: FormGroup;
+    SubadminForm: FormGroup;
+    selectedFile: File;
+    isEdit: boolean = false;
     private myActionSub: Subscription | undefined;
 
     constructor(
@@ -36,6 +38,12 @@ export class FormSubadminComponent {
                 Validators.required,
                 Validators.minLength(5),
             ]),
+            ssn: new FormControl('', [
+                Validators.required,
+                this.numericValidator,
+                Validators.maxLength(14),
+                Validators.minLength(14),
+            ]),
             email: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', [
                 Validators.required,
@@ -44,8 +52,42 @@ export class FormSubadminComponent {
                     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
                 ),
             ]),
-            photo: new FormControl(null, Validators.required)
+            // imageFile: new FormControl(null, [
+            //     Validators.required,
+            //     this.validateFileType(),
+            // ]),
         });
+        if (!this.isEdit) {
+            this.SubadminForm.addControl(
+                'imageFile',
+                new FormControl(null, [
+                    Validators.required,
+                    this.validateFileType(),
+                ])
+            );
+        }
+    }
+
+    numericValidator(control: FormControl): { [key: string]: any } | null {
+        const value = control.value;
+        if (!/^\d+$/.test(value)) {
+            return { numeric: true };
+        }
+        return null;
+    }
+
+    validateFileType() {
+        const allowedTypes = ['png', 'jpg', 'jpeg'];
+        return (control: FormControl): { [key: string]: any } | null => {
+            const file = control.value;
+            if (file) {
+                const extension = file.split('.').pop()?.toLowerCase();
+                if (!allowedTypes.includes(extension)) {
+                    return { invalidFileType: true };
+                }
+            }
+            return null;
+        };
     }
 
     getFormControl(name: string): FormControl {
@@ -54,19 +96,20 @@ export class FormSubadminComponent {
 
     id: number = 0;
     ngOnInit(): void {
-        // Extract id from route parameters
         this.actRoute.params.subscribe((params) => {
             this.id = params['id'];
-            // If id is not provided in the route parameters, set it to 0
+
+            this.isEdit = !!this.id;
             if (!this.id) {
                 this.id = 0;
             }
 
-            // edit
-            if (this.id != 0) {
+            if (this.isEdit) {
                 this.subadminService
                     .getById(this.id)
                     .subscribe((subadmin: ISubadmin) => {
+                        this.SubadminForm.removeControl('imageFile');
+
                         this.SubadminForm.controls['name'].setValue(
                             subadmin.name
                         );
@@ -82,27 +125,54 @@ export class FormSubadminComponent {
                         this.SubadminForm.controls['password'].setValue(
                             subadmin.password
                         );
-                        this.SubadminForm.controls['photo'].setValue(
-                            subadmin.photo
+                        this.SubadminForm.controls['ssn'].setValue(
+                            subadmin.ssn
                         );
                     });
             }
         });
     }
 
+    onFileSelected(event) {
+        this.selectedFile = <File>event.target.files[0];
+
+        console.log(this.selectedFile);
+        if (!this.isEdit && this.selectedFile) {
+            this.SubadminForm.addControl(
+                'imageFile',
+                new FormControl(null, [
+                    Validators.required,
+                    this.validateFileType(),
+                ])
+            );
+        }
+    }
+
     onSubmit(e: Event) {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', this.SubadminForm.value.name);
+        formData.append('phone', this.SubadminForm.value.phone);
+        formData.append('address', this.SubadminForm.value.address);
+        formData.append('email', this.SubadminForm.value.email);
+        formData.append('password', this.SubadminForm.value.password);
+        formData.append('ssn', this.SubadminForm.value.ssn);
+
+        if (this.isEdit && this.selectedFile) {
+            formData.append('imageFile', this.selectedFile);
+        } else if (!this.isEdit) {
+            formData.append('imageFile', this.selectedFile);
+        }
+
         if (this.SubadminForm.valid) {
             if (this.id) {
                 this.subadminService
                     .Edit(this.id, this.SubadminForm.value)
                     .subscribe(() => {});
             } else {
-                this.subadminService
-                    .Add(this.SubadminForm.value)
-                    .subscribe(() => {});
+                this.subadminService.Add(formData).subscribe(() => {});
             }
-            this.router.navigate(['/uikit/subadmin']);
+            this.router.navigate(['/subadmin']);
         }
     }
 

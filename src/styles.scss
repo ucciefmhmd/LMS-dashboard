@@ -13,6 +13,8 @@ $gutter: 1rem; //for primeflex grid system
 @import "assets/demo/styles/badges.scss";
 @import "assets/demo/styles/code.scss";
 
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 .alert {
     padding: 1rem;
     border: 1px solid transparent;
@@ -34,3 +36,8 @@ $gutter: 1rem; //for primeflex grid system
 .mt-4 {
     margin-top: 50px;
 }
+ul{
+    text-decoration: none;
+}
+
+

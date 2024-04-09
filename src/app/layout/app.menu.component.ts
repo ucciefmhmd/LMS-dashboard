@@ -1,6 +1,7 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
+import { LoginService } from '../demo/API-Services/login.service';
 
 @Component({
     selector: 'app-menu',
@@ -8,8 +9,12 @@ import { LayoutService } from './service/app.layout.service';
 })
 export class AppMenuComponent implements OnInit {
     model: any[] = [];
+    isLogin: boolean = true;
 
-    constructor(public layoutService: LayoutService) {}
+    constructor(
+        public layoutService: LayoutService,
+        private loginServices: LoginService
+    ) {}
 
     ngOnInit() {
         this.model = [
@@ -59,6 +64,7 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/subadmin'],
                             },
                         ],
+                        visible: this.shouldShowSubadmin(),
                     },
                 ],
             },
@@ -111,19 +117,13 @@ export class AppMenuComponent implements OnInit {
                             },
                         ],
                     },
-                    {
-                        label: 'Auth',
-                        icon: 'pi pi-fw pi-user',
-                        items: [
-                            {
-                                label: 'Login',
-                                icon: 'pi pi-fw pi-sign-in',
-                                routerLink: ['/auth/login'],
-                            },
-                        ],
-                    },
                 ],
             },
         ];
+    }
+
+    shouldShowSubadmin() {
+        const currentUser = this.loginServices.currentUser.value;
+        return currentUser && currentUser.role !== 'subadmin';
     }
 }
